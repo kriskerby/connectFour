@@ -1,7 +1,7 @@
 import Game from "./game.js";
 
 let game = undefined;
-
+const clickTargets = document.getElementById("click-targets");
 function updateUI() {
   if (game === undefined) {
     document.getElementById("board-holder").classList.add("is-invisble");
@@ -11,6 +11,14 @@ function updateUI() {
     const gameName = document.getElementById("game-name");
     gameName.innerHTML = game.getName();
     document.getElementById("board-holder").classList.remove("is-invisble");
+  }
+  if(game.currentPlayer === 1){
+    clickTargets.classList.add('red');
+    clickTargets.classList.remove('black');
+  }
+  else{
+    clickTargets.classList.add('black')
+    clickTargets.classList.remove('red');
   }
 }
 
@@ -41,4 +49,9 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
     updateUI();
   });
+  clickTargets.addEventListener("click", (event) => {
+    game.playInColumn();
+    updateUI();
+  })
+
 });
